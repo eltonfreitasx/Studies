@@ -2,13 +2,43 @@
 
 <div id="app">
     <a>{{ contador }}</a>
+    <button v-on:Click="somar(5, $event)">Somar 1</button>
+    <p v-on:mousemove="atualizarXY">Mouse: {{ x }} e {{ y }}
+      <span v-on:mousemove.stop="">Parar AQUI!!!</span> 
+      <!--pararXY coloca nas aspas ali q faz a mesma coisa-->
+    </p>
+    <a v-on:click.prevent="" href="http://google.com">Google</a>
+    <hr>
+    <input type="text" v-on:keyup.enter.alt="exibirAlerta">
 </div>
-
+<!-- $event - palavra reservada do vue os dados do event de click -->
+<!-- o enter ali so quando apertar o alt + enter no teclado -->
 <script>
   new Vue({
     el: "#app",
     data: {
-        contador: 'Usar Vue.js'
+        contador: 0,
+        x: 0,
+        y: 0,
+    },
+    methods: {
+      somar: function(passo, ev) {
+        this.contador += passo
+        console.log(passo, ev)
+      },
+      atualizarXY(event) {
+        this.x = event.clientX
+        this.y = event.clientY
+      },
+      naoNavegar(event) {
+        event.preventDefault()
+      },
+      exibirAlerta() {
+        alert('estou alertando')
+      }
+      // pararXY(e) {
+      //   e.stopPropagation()
+      // }
     }
   });
 </script>
